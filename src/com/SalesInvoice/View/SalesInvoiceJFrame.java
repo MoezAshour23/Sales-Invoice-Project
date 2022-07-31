@@ -7,7 +7,10 @@ package com.SalesInvoice.View;
 
 import com.SalesInvoice.Controller.Controller;
 import com.SalesInvoice.Model.SalesInvoice;
+import com.SalesInvoice.Model.SalesInvoicesTableModel;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 
 /**
  *
@@ -33,6 +36,7 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         salesInvoiceTable = new javax.swing.JTable();
+        salesInvoiceTable.getSelectionModel().addListSelectionListener(controller);
         createNewInvoiceButton = new javax.swing.JButton();
         createNewInvoiceButton.addActionListener(controller);
         deleteInvoiceButton = new javax.swing.JButton();
@@ -41,7 +45,7 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        InvoiceNumverLabel = new javax.swing.JLabel();
+        InvoiceNumberLabel = new javax.swing.JLabel();
         InvoiceDateLabel = new javax.swing.JLabel();
         CustNameLabel = new javax.swing.JLabel();
         InvoiceTotalLabel = new javax.swing.JLabel();
@@ -62,13 +66,10 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
 
         salesInvoiceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(salesInvoiceTable);
@@ -92,13 +93,10 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
 
         invoiceItemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane2.setViewportView(invoiceItemTable);
@@ -129,12 +127,13 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(createNewInvoiceButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(91, 91, 91)
                         .addComponent(deleteInvoiceButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -148,9 +147,9 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
                             .addComponent(InvoiceTotalLabel)
                             .addComponent(CustNameLabel)
                             .addComponent(InvoiceDateLabel)
-                            .addComponent(InvoiceNumverLabel))
+                            .addComponent(InvoiceNumberLabel))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(createNewItemButton)
@@ -166,7 +165,7 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(InvoiceNumverLabel))
+                            .addComponent(InvoiceNumberLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -241,7 +240,7 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CustNameLabel;
     private javax.swing.JLabel InvoiceDateLabel;
-    private javax.swing.JLabel InvoiceNumverLabel;
+    private javax.swing.JLabel InvoiceNumberLabel;
     private javax.swing.JLabel InvoiceTotalLabel;
     private javax.swing.JMenuItem LoadFileMenuItem;
     private javax.swing.JMenuItem SaveFileMenuItem;
@@ -262,6 +261,7 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private ArrayList<SalesInvoice>SalesInvoices;
     private Controller controller = new Controller (this) ;
+    private SalesInvoicesTableModel salesInvoicesTableModel ;
    
     
     public ArrayList<SalesInvoice> getSalesInvoices() {
@@ -270,6 +270,70 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
 
     public void setSalesInvoices(ArrayList<SalesInvoice> SalesInvoices) {
         this.SalesInvoices = SalesInvoices;
+    }
+
+    public JLabel getCustNameLabel() {
+        return CustNameLabel;
+    }
+
+    public void setCustNameLabel(JLabel CustNameLabel) {
+        this.CustNameLabel = CustNameLabel;
+    }
+
+    public JLabel getInvoiceDateLabel() {
+        return InvoiceDateLabel;
+    }
+
+    public void setInvoiceDateLabel(JLabel InvoiceDateLabel) {
+        this.InvoiceDateLabel = InvoiceDateLabel;
+    }
+
+    public JLabel getInvoiceNumberLabel() {
+        return InvoiceNumberLabel;
+    }
+
+    public void setInvoiceNumberLabel(JLabel InvoiceNumberLabel) {
+        this.InvoiceNumberLabel = InvoiceNumberLabel;
+    }
+
+    public JTable getInvoiceItemTable() {
+        return invoiceItemTable;
+    }
+
+    public void setInvoiceItemTable(JTable invoiceItemTable) {
+        this.invoiceItemTable = invoiceItemTable;
+    }
+
+    public JTable getSalesInvoiceTable() {
+        return salesInvoiceTable;
+    }
+
+    public void setSalesInvoiceTable(JTable salesInvoiceTable) {
+        this.salesInvoiceTable = salesInvoiceTable;
+    }
+
+    public Controller getController() {
+        return controller;
+    }
+
+    public JLabel getInvoiceTotalLabel() {
+        return InvoiceTotalLabel;
+    }
+
+    public void setInvoiceTotalLabel(JLabel InvoiceTotalLabel) {
+        this.InvoiceTotalLabel = InvoiceTotalLabel;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
+    public SalesInvoicesTableModel getSalesInvoicesTableModel() {
+        return salesInvoicesTableModel;
+    }
+
+    public void setSalesInvoicesTableModel(SalesInvoicesTableModel salesInvoicesTableModel) {
+        this.salesInvoicesTableModel = salesInvoicesTableModel;
     }
 
 }

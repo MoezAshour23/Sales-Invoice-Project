@@ -11,6 +11,7 @@ public class SalesInvoice {
     private String customer;
     private ArrayList<Item>Items;
 
+
     public ArrayList<Item> getItems() {
        if (Items==null){
            Items = new ArrayList<>();
@@ -22,6 +23,14 @@ public class SalesInvoice {
         this.Items = Items;
     }
     
+    public double getSalesinvoiceTotal (){
+       double total = 0.0;
+       for (Item item :getItems()){
+           total += item.getItemTotal();
+       }
+        return total;
+        
+    }
 
     public SalesInvoice() {
     }

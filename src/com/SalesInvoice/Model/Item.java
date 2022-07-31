@@ -2,34 +2,29 @@
  
 package com.SalesInvoice.Model;
 
+import com.SalesInvoice.View.InvoiceDailog;
+
 
 public class Item {
-   private int number;
+   
    private String item;
    private double price;
    private int count;
-   private SalesInvoice SalesInvoice;
+   private SalesInvoice salesInvoice;
    
     
 
     public Item() {
     }
 
-    public Item(int number, String item, double price, int count, SalesInvoice SalesInvoice) {
-        this.number = number;
+    public Item( String item, double price, int count, SalesInvoice SalesInvoice) {
         this.item = item;
         this.price = price;
         this.count = count;
-        this.SalesInvoice = SalesInvoice;
+        this.salesInvoice = SalesInvoice;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
+     
 
     public String getItem() {
         return item;
@@ -47,6 +42,10 @@ public class Item {
         this.price = price;
     }
 
+     public double getItemTotal() {
+        return price * count;
+    }
+    
     public int getCount() {
         return count;
     }
@@ -57,7 +56,11 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" + "number=" + number + ", item=" + item + ", price=" + price + ", count=" + count + '}';
+        return "Item{" + "number=" + salesInvoice.getNumber() + ", item=" + item + ", price=" + price + ", count=" + count + '}';
+    }
+
+    public SalesInvoice getSalesInvoice() {
+        return salesInvoice;
     }
     
 }

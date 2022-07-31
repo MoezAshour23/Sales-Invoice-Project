@@ -57,13 +57,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="createNewInvoiceButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
                       <Component id="deleteInvoiceButton" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" min="-2" pref="408" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="393" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -79,11 +80,11 @@
                           <Component id="InvoiceTotalLabel" min="-2" max="-2" attributes="0"/>
                           <Component id="CustNameLabel" min="-2" max="-2" attributes="0"/>
                           <Component id="InvoiceDateLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="InvoiceNumverLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="InvoiceNumberLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane2" pref="524" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="528" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                       <Component id="createNewItemButton" min="-2" max="-2" attributes="0"/>
@@ -103,7 +104,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="InvoiceNumverLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="InvoiceNumberLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -150,14 +151,12 @@
         <Component class="javax.swing.JTable" name="salesInvoiceTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                <Column editable="true" title="Title 4" type="java.lang.Object"/>
-              </Table>
+              <Table columnCount="0" rowCount="0"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="salesInvoiceTable.getSelectionModel().addListSelectionListener(controller);&#xd;&#xa;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -200,7 +199,7 @@
         <Property name="text" type="java.lang.String" value="Invoice Total"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="InvoiceNumverLabel">
+    <Component class="javax.swing.JLabel" name="InvoiceNumberLabel">
     </Component>
     <Component class="javax.swing.JLabel" name="InvoiceDateLabel">
     </Component>
@@ -218,12 +217,7 @@
         <Component class="javax.swing.JTable" name="invoiceItemTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                <Column editable="true" title="Title 4" type="java.lang.Object"/>
-              </Table>
+              <Table columnCount="0" rowCount="0"/>
             </Property>
           </Properties>
         </Component>

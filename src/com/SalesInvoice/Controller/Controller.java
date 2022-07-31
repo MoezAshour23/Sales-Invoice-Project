@@ -2,7 +2,9 @@
 package com.SalesInvoice.Controller;
 
 import com.SalesInvoice.Model.Item;
+import com.SalesInvoice.Model.ItemsTableModel;
 import com.SalesInvoice.Model.SalesInvoice;
+import com.SalesInvoice.Model.SalesInvoicesTableModel;
 import com.SalesInvoice.View.SalesInvoiceJFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +16,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 
-public class Controller implements ActionListener {
+public class Controller implements ActionListener , ListSelectionListener {
     private SalesInvoiceJFrame frame;
     
 public Controller (SalesInvoiceJFrame frame ){
@@ -48,6 +52,22 @@ public Controller (SalesInvoiceJFrame frame ){
         }
     }
 
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        int selectedIndex = frame.getSalesInvoiceTable().getSelectedRow();
+        System.out.println("U have Selected row"+selectedIndex );
+        SalesInvoice existingSalesInvoice = frame.getSalesInvoices().get(selectedIndex);
+        frame.getInvoiceNumberLabel().setText(""+existingSalesInvoice.getNumber());
+        frame.getInvoiceDateLabel().setText(existingSalesInvoice.getDate());
+        frame.getCustNameLabel().setText(existingSalesInvoice.getCustomer());
+        frame.getInvoiceTotalLabel().setText(""+existingSalesInvoice.getSalesinvoiceTotal());
+        ItemsTableModel itemsTableModel = new ItemsTableModel (existingSalesInvoice.getItems());
+        frame.getInvoiceItemTable().setModel(itemsTableModel);
+        itemsTableModel.fireTableDataChanged();
+        
+        
+    }
+    
     private void loadFile() {
         JFileChooser fc = new JFileChooser();
         try {
@@ -65,18 +85,19 @@ public Controller (SalesInvoiceJFrame frame ){
             String custName = headerspertors[2];
             SalesInvoice salesinvoice = new SalesInvoice(invoiceNumber, invoiceDate, custName);
             salesinvoicesArray.add(salesinvoice);
+        }
                         System.out.println("Check1");
             
            select = fc.showOpenDialog(frame);
-          File  ItemFile =  fc.getSelectedFile();
-           Path Itempath = Paths.get(ItemFile.getAbsolutePath());
-            List<String> itemlines = Files.readAllLines(Itempath);
+          
                        if (select == JFileChooser.APPROVE_OPTION){
-
-            ArrayList<Item> itemsArray = new ArrayList<>();
+                      File  ItemFile =  fc.getSelectedFile();
+                    Path Itempath = Paths.get(ItemFile.getAbsolutePath());
+                     List<String> itemlines = Files.readAllLines(Itempath);
+           // ArrayList<Item> itemsArray = new ArrayList<>();
             System.out.println("sales items read done");
-                       }
-        for (String itemline : itemlines){
+                       
+             for (String itemline : itemlines){
             String [] itemspertors = itemline.split(",");
             int itemNumber = Integer.parseInt(itemspertors[0]);
             String itemName = itemspertors[1];
@@ -85,19 +106,23 @@ public Controller (SalesInvoiceJFrame frame ){
              SalesInvoice invoice = null;
              for (SalesInvoice salesInvoice : salesinvoicesArray){
              
-                if (salesinvoice.getNumber()== itemNumber) {
-                     invoice = salesinvoice;
+                if (salesInvoice.getNumber() == itemNumber) {
+                     invoice = salesInvoice;
                      break;
                 }
              
              }
-             Item item = new Item(itemNumber, itemName, itemPrice, itemCount, invoice);
+             Item item = new Item(itemName, itemPrice, itemCount, invoice);
              invoice.getItems().add(item);
 
               }
                             System.out.println("Check2");
         }
         frame.setSalesInvoices(salesinvoicesArray);
+        SalesInvoicesTableModel salesInvoicesTableModel = new SalesInvoicesTableModel(salesinvoicesArray);
+        frame.setSalesInvoicesTableModel(salesInvoicesTableModel);
+        frame.getSalesInvoiceTable().setModel(salesInvoicesTableModel);
+        frame.getSalesInvoicesTableModel().fireTableDataChanged();
       }
     }      catch (IOException exc){
         exc.printStackTrace();
@@ -120,5 +145,5 @@ public Controller (SalesInvoiceJFrame frame ){
 
     private void deleteItem() {
     }
-    
+
 }
