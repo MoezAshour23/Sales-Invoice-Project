@@ -41,5 +41,9 @@ public class ItemsTableModel extends AbstractTableModel {
             default:return "";
         }
     }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
     
 }

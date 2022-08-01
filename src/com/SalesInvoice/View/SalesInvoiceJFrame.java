@@ -315,6 +315,15 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
     public Controller getController() {
         return controller;
     }
+    
+    public int getNextInvoiceNumber(){
+        int number=0;
+        for(SalesInvoice salesInvoice : SalesInvoices){
+            if (salesInvoice.getNumber()> number)
+                number = salesInvoice.getNumber();
+        }
+        return number;
+    }
 
     public JLabel getInvoiceTotalLabel() {
         return InvoiceTotalLabel;
@@ -335,6 +344,7 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
     public void setSalesInvoicesTableModel(SalesInvoicesTableModel salesInvoicesTableModel) {
         this.salesInvoicesTableModel = salesInvoicesTableModel;
     }
+    
 
 }
      

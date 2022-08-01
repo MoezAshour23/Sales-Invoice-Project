@@ -5,6 +5,8 @@ import com.SalesInvoice.Model.Item;
 import com.SalesInvoice.Model.ItemsTableModel;
 import com.SalesInvoice.Model.SalesInvoice;
 import com.SalesInvoice.Model.SalesInvoicesTableModel;
+import com.SalesInvoice.View.InvoiceDailog;
+import com.SalesInvoice.View.ItemsDailog;
 import com.SalesInvoice.View.SalesInvoiceJFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +24,9 @@ import javax.swing.event.ListSelectionListener;
 
 public class Controller implements ActionListener , ListSelectionListener {
     private SalesInvoiceJFrame frame;
-    
+    private InvoiceDailog invoiceDailog;
+    private ItemsDailog itemsDailog; 
+   
 public Controller (SalesInvoiceJFrame frame ){
     this.frame = frame;
 }
@@ -49,12 +53,26 @@ public Controller (SalesInvoiceJFrame frame ){
             case "Delete Item":
                 deleteItem();
                break;   
+               case "CreateInvoiceCancel ":
+                createInvoiceCancel ();
+               break;
+            case "CreateInvoiceOK":
+                createInvoiceOK ();
+               break;
+               case "createItemOK ":
+                createItemOK ();
+               break;
+               case "createItemCancel ":
+                createItemCancel ();
+               break;
+                       
         }
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
         int selectedIndex = frame.getSalesInvoiceTable().getSelectedRow();
+        if (selectedIndex != -1) {
         System.out.println("U have Selected row"+selectedIndex );
         SalesInvoice existingSalesInvoice = frame.getSalesInvoices().get(selectedIndex);
         frame.getInvoiceNumberLabel().setText(""+existingSalesInvoice.getNumber());
@@ -63,7 +81,7 @@ public Controller (SalesInvoiceJFrame frame ){
         frame.getInvoiceTotalLabel().setText(""+existingSalesInvoice.getSalesinvoiceTotal());
         ItemsTableModel itemsTableModel = new ItemsTableModel (existingSalesInvoice.getItems());
         frame.getInvoiceItemTable().setModel(itemsTableModel);
-        itemsTableModel.fireTableDataChanged();
+        itemsTableModel.fireTableDataChanged();}
         
         
     }
@@ -135,15 +153,58 @@ public Controller (SalesInvoiceJFrame frame ){
     }
 
     private void createNewInvoice() {
+        
+        invoiceDailog = new InvoiceDailog(frame);
+        invoiceDailog.setVisible(true);
+        
     }
 
     private void deleteInvoice() {
+       int selectedRow = frame.getSalesInvoiceTable().getSelectedRow();
+        if (selectedRow != -1) {
+            frame.getSalesInvoices().remove(selectedRow);
+            frame.getSalesInvoicesTableModel().fireTableDataChanged();
+        }
+        
     }
 
     private void createNewItem() {
     }
 
     private void deleteItem() {
+        int selectedRow = frame.getInvoiceItemTable().getSelectedRow();
+        if ( selectedRow != -1) {
+            
+            ItemsTableModel itemTableModel =(ItemsTableModel) frame.getInvoiceItemTable().getModel();
+            itemTableModel.getItems().remove(selectedRow);
+            
+            itemTableModel.fireTableDataChanged();
+            
+        }
+    }
+
+    private void createInvoiceCancel() {
+        invoiceDailog.setVisible(false);
+        invoiceDailog.dispose();
+        invoiceDailog=null;
+        
+    }
+
+    private void createInvoiceOK() {
+        String date = invoiceDailog.getInvoiceDateField().getText();
+        String customer = invoiceDailog.getCustomerNameField().getText();
+        int number = frame.getNextInvoiceNumber();
+        SalesInvoice salesInvoice = new SalesInvoice(number, date, customer);
+        frame.getSalesInvoices().add(salesInvoice);
+        frame.getSalesInvoicesTableModel().fireTableDataChanged();
+    }
+
+    private void createItemOK() {
+        
+    }
+
+    private void createItemCancel() {
+        
     }
 
 }
