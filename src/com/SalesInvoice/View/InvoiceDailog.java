@@ -1,6 +1,6 @@
 
  
-package com.SalesInvoice.View;;
+package com.SalesInvoice.View;
 
 import com.SalesInvoice.View.SalesInvoiceJFrame;
 import java.awt.GridLayout;

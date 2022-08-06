@@ -1,6 +1,6 @@
 
-package com.SalesInvoice.View;;
-
+package com.SalesInvoice.View;
+import com.SalesInvoice.View.SalesInvoiceJFrame;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,8 +15,8 @@ public class ItemsDailog extends JDialog{
     private JLabel itemNameLabel;
     private JLabel itemCountLabel;
     private JLabel itemPriceLabel;
-    private JButton saveButton;
-    private JButton cancelButton;
+    private JButton createItemOkButton;
+    private JButton createItemCancelButton;
     
     public ItemsDailog(SalesInvoiceJFrame frame) {
         itemNameField = new JTextField(20);
@@ -28,14 +28,14 @@ public class ItemsDailog extends JDialog{
         itemPriceField = new JTextField(20);
         itemPriceLabel = new JLabel("Item Price");
         
-        saveButton = new JButton("Save");
-        cancelButton = new JButton("Cancel");
+        createItemOkButton = new JButton("Ok");
+        createItemCancelButton = new JButton("Cancel");
         
-        saveButton.setActionCommand("createItemOK");
-        cancelButton.setActionCommand("cancelItemCancel");
+        createItemOkButton.setActionCommand("CreateItemInvoiceOK");
+        createItemCancelButton.setActionCommand("CreateItemInvoiceCancel");
         
-        saveButton.addActionListener(frame.getController());
-        cancelButton.addActionListener(frame.getController());
+        createItemOkButton.addActionListener(frame.getController());
+        createItemCancelButton.addActionListener(frame.getController());
         setLayout(new GridLayout(4, 2));
         
         add(itemNameLabel);
@@ -44,8 +44,8 @@ public class ItemsDailog extends JDialog{
         add(itemCountField);
         add(itemPriceLabel);
         add(itemPriceField);
-        add(saveButton);
-        add(cancelButton);
+        add(createItemOkButton);
+        add(createItemCancelButton);
         
         pack();
     }

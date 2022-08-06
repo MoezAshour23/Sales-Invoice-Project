@@ -229,6 +229,7 @@
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="createNewItemButton.addActionListener(controller);&#xd;&#xa;"/>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="SalesInvoiceJFrame_createNewItemButton"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="deleteItemButton">
@@ -237,6 +238,7 @@
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="deleteItemButton.addActionListener(controller);&#xd;&#xa;"/>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="SalesInvoiceJFrame_deleteItemButton"/>
       </AuxValues>
     </Component>
   </SubComponents>

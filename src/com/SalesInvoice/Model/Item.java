@@ -3,6 +3,7 @@
 package com.SalesInvoice.Model;
 
 import com.SalesInvoice.View.InvoiceDailog;
+import java.util.ArrayList;
 
 
 public class Item {
@@ -12,16 +13,22 @@ public class Item {
    private int count;
    private SalesInvoice salesInvoice;
    
-    
+      public String getAsCSV() {
+        return salesInvoice.getNumber()+ "," + item + "," + price + "," + count;
+    }
 
     public Item() {
     }
 
-    public Item( String item, double price, int count, SalesInvoice SalesInvoice) {
+    public Item( String item, double price, int count, SalesInvoice salesInvoice) {
         this.item = item;
         this.price = price;
         this.count = count;
-        this.salesInvoice = SalesInvoice;
+        this.salesInvoice = salesInvoice;
+    }
+
+    public Item(Item salesitem, double price, int count, SalesInvoice salesInvoice) {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
      
@@ -62,5 +69,10 @@ public class Item {
     public SalesInvoice getSalesInvoice() {
         return salesInvoice;
     }
+     
+    
+
+  
+
     
 }

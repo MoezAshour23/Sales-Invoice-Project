@@ -11,6 +11,7 @@ import com.SalesInvoice.View.SalesInvoiceJFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,8 +25,8 @@ import javax.swing.event.ListSelectionListener;
 
 public class Controller implements ActionListener , ListSelectionListener {
     private SalesInvoiceJFrame frame;
-    private InvoiceDailog invoiceDailog;
-    private ItemsDailog itemsDailog; 
+    private InvoiceDailog invoiceDailog;  
+    private ItemsDailog itemDailog; 
    
 public Controller (SalesInvoiceJFrame frame ){
     this.frame = frame;
@@ -53,16 +54,16 @@ public Controller (SalesInvoiceJFrame frame ){
             case "Delete Item":
                 deleteItem();
                break;   
-               case "CreateInvoiceCancel ":
+               case "CreateInvoiceCancel":
                 createInvoiceCancel ();
                break;
             case "CreateInvoiceOK":
                 createInvoiceOK ();
                break;
-               case "createItemOK ":
+               case "CreateItemInvoiceOK":
                 createItemOK ();
                break;
-               case "createItemCancel ":
+               case "CreateItemInvoiceCancel":
                 createItemCancel ();
                break;
                        
@@ -150,6 +151,43 @@ public Controller (SalesInvoiceJFrame frame ){
         
 
     private void saveFile() {
+        
+          ArrayList<SalesInvoice> salesInvoices = frame.getSalesInvoices();
+        String headers = "";
+        String items = "";
+        for (SalesInvoice salesInvoice : salesInvoices) {
+            String salesInvoicevCSV = salesInvoice.getAsCSV();
+            headers += salesInvoicevCSV;
+            headers += "\n";
+
+            for (Item item : salesInvoice.getItems()) {
+                String itemCSV = item.getAsCSV();
+                items += itemCSV;
+                items += "\n";
+            }
+        }
+        
+        try {
+            JFileChooser fc = new JFileChooser();
+            int result = fc.showSaveDialog(frame);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File headerFile = fc.getSelectedFile();
+                FileWriter hfw = new FileWriter(headerFile);
+                hfw.write(headers);
+                hfw.flush();
+                hfw.close();
+                result = fc.showSaveDialog(frame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File lineFile = fc.getSelectedFile();
+                    FileWriter lfw = new FileWriter(lineFile);
+                    lfw.write(items);
+                    lfw.flush();
+                    lfw.close();
+                }
+            }
+        } catch (Exception ex) {
+
+        }
     }
 
     private void createNewInvoice() {
@@ -169,6 +207,9 @@ public Controller (SalesInvoiceJFrame frame ){
     }
 
     private void createNewItem() {
+        
+      itemDailog = new ItemsDailog(frame);
+      itemDailog.setVisible(true);
     }
 
     private void deleteItem() {
@@ -179,6 +220,7 @@ public Controller (SalesInvoiceJFrame frame ){
             itemTableModel.getItems().remove(selectedRow);
             
             itemTableModel.fireTableDataChanged();
+            frame.getSalesInvoicesTableModel().fireTableDataChanged();
             
         }
     }
@@ -197,14 +239,37 @@ public Controller (SalesInvoiceJFrame frame ){
         SalesInvoice salesInvoice = new SalesInvoice(number, date, customer);
         frame.getSalesInvoices().add(salesInvoice);
         frame.getSalesInvoicesTableModel().fireTableDataChanged();
+        invoiceDailog.setVisible(false);
+        invoiceDailog.dispose();
+        invoiceDailog=null;
     }
 
     private void createItemOK() {
+        String item = itemDailog.getItemNameField().getText();
+        String countStr =itemDailog.getItemCountField().getText();
+        String priceStr = itemDailog.getItemPriceField().getText();
+        int count = Integer.parseInt(countStr);
+        double price = Double.parseDouble(priceStr);
+        int selectedSalesInvoice = frame.getSalesInvoiceTable().getSelectedRow();
+        if (selectedSalesInvoice != -1 ){
+            SalesInvoice salesInvoice = frame.getSalesInvoices().get(selectedSalesInvoice); 
+            Item salesitem = new Item(item, price, count, salesInvoice);
+            salesInvoice.getItems().add(salesitem);
+            ItemsTableModel itemsTableModel = (ItemsTableModel) frame.getInvoiceItemTable().getModel();
+            itemsTableModel.fireTableDataChanged();
+            frame.getSalesInvoicesTableModel().fireTableDataChanged();
+        }
+        
+        itemDailog.setVisible(false);
+        itemDailog.dispose();
+        itemDailog = null;
         
     }
 
     private void createItemCancel() {
-        
+        itemDailog.setVisible(false);
+        itemDailog.dispose();
+        itemDailog = null;
     }
 
 }

@@ -6,6 +6,7 @@
 package com.SalesInvoice.View;
 
 import com.SalesInvoice.Controller.Controller;
+import com.SalesInvoice.Model.ItemsTableModel;
 import com.SalesInvoice.Model.SalesInvoice;
 import com.SalesInvoice.Model.SalesInvoicesTableModel;
 import java.util.ArrayList;
@@ -262,6 +263,16 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
     private ArrayList<SalesInvoice>SalesInvoices;
     private Controller controller = new Controller (this) ;
     private SalesInvoicesTableModel salesInvoicesTableModel ;
+    private ItemsTableModel itemsTableModel;
+
+    public ItemsTableModel getItemsTableModel() {
+        return itemsTableModel;
+    }
+
+    public void setItemsTableModel(ItemsTableModel itemsTableModel) {
+        this.itemsTableModel = itemsTableModel;
+    }
+    
    
     
     public ArrayList<SalesInvoice> getSalesInvoices() {
@@ -322,7 +333,7 @@ public class SalesInvoiceJFrame extends javax.swing.JFrame {
             if (salesInvoice.getNumber()> number)
                 number = salesInvoice.getNumber();
         }
-        return number;
+        return ++number;
     }
 
     public JLabel getInvoiceTotalLabel() {

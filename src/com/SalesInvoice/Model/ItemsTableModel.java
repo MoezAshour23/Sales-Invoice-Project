@@ -33,6 +33,8 @@ public class ItemsTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Item item = items.get(rowIndex);
         switch(columnIndex){
+       
+            
             case 0 : return item.getSalesInvoice().getNumber();
             case 1 : return item.getItem();
             case 2 : return item.getPrice();

@@ -11,6 +11,10 @@ public class SalesInvoice {
     private String customer;
     private ArrayList<Item>Items;
 
+    
+        public String getAsCSV() {
+        return number + "," + date + "," + customer;
+    }
 
     public ArrayList<Item> getItems() {
        if (Items==null){
@@ -70,6 +74,10 @@ public class SalesInvoice {
         return "SalesInvoice{" + "number=" + number + ", date=" + date + ", customer=" + customer + '}';
     }
     
+
+
+
+   
     
     
     
